@@ -27,7 +27,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Teste de código com pytest
       run: |
-        pipenv run pytest pypro
+        pipenv run pytest pypro --cov=pypro
     - name: Relatório Coverage
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
