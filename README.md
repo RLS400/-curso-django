@@ -1,4 +1,4 @@
-# -curso-django
+# curso-django
 Código desenvolvido no módulo de Django do www.python.pro.br
 
 Construção de web site: nesse módulo será construída uma aplicação web real utilizando o Web Django, o mais famoso framework web de Python. Ele serve como prática, onde todos os conceitos vistos nos demais módulos serão colocados à prova. Além dos conceitos, será exemplificado um processo de entrega contínua com deploys regulares no Heroku.
