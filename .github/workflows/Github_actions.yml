@@ -31,13 +31,13 @@ jobs:
     - name: Instalar dependências
       run: |
         pip install --upgrade pip
-        pip install -q pipenv codecov flake8
+        pip install pipenv codecov flake8
         pipenv sync --dev
 
     - name: Rodar flake8
       uses: py-actions/flake8@v1
       with:
-        checkName: 'flake8_py3'
+        max-line-length: 120
 
     - name: Rodar Testes Automáticos
       run: |
