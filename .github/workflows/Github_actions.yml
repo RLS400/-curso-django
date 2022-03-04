@@ -5,30 +5,42 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.10.2
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.10.2
-    - name: Install dependencies
+
+    - name: Copiar Configurações .env
       run: |
-        python -m pip install --upgrade pip
-        pip install -q pipenv codecov flake8
+        cp contrib/env-sample .env
+
+    - name: Instalar dependências
+      run: |
+        pip install --upgrade pip
+        pip install pipenv
         pipenv sync --dev
-        cp contrib/env-semple .env
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Teste de código com pytest
+
+    - name: Rodar flake8
+      uses: py-actions/flake8@v1
+      with:
+        max-line-length: 120
+
+    - name: Rodar Testes Automáticos
       run: |
         pipenv run pytest pypro --cov=pypro
+
     - name: Relatório Coverage
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
