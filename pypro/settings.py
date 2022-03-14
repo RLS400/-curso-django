@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'collectfast',
     'django.contrib.staticfiles',
     'pypro.base',
 ]
@@ -129,6 +130,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MIDIA_URL = '/midia/'
 MIDIA_ROOT = os.path.join(BASE_DIR, 'midiafiles')
 
+COLLECTFAST_ENABLED = False
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -139,13 +142,16 @@ AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 # STORAGE CONFIGURATION IN S3 AWS
 # --------------------------------------------------------------------------
 
-if AWS_ACCESS_KEY_ID:
+if AWS_ACCESS_KEY_ID:  # pragma: no cover
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     AWS_PRELOAD_METADATA = True
     AWS_AUTO_CREATE_BUCKET = False
     AWS_QUERYSTRING_AUTH = True
+
+    COLLECTFAST_ENABLED = True
+
     AWS_S3_CUSTOM_DOMAIN = None
     AWS_DEFAULT_ACL = 'private'
 
