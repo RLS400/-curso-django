@@ -39,7 +39,7 @@ jobs:
 
     - name: Rodar Testes Automáticos
       run: |
-        pipenv run pytest pypro --cov=pypro
+        pipenv run pytest --cov=pypro
 
     - name: Relatório Coverage
       env:
