@@ -1,7 +1,5 @@
 from django.http import HttpResponse
 
 
-# Create your views here.
-
 def home(request):
-    return HttpResponse('Óla Django')
+    return HttpResponse('<html><body>Hola Django</body></html>')
