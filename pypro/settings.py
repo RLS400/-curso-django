@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from functools import partial
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 import dj_database_url
 from decouple import config, Csv
 from pathlib import Path
@@ -33,8 +36,6 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 AUTH_USER_MODEL = 'base.User'
 # Application definition
 
-STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -76,6 +77,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'pypro.wsgi.application'
+
+# Configuração Django Debug Toolbar
+
+INTERNAL_IPS = config('INTERNAL_IPS', cast=Csv(), default='127.0.0.1')
+
+if DEBUG:
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -141,7 +150,7 @@ COLLECTFAST_ENABLED = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default=False)
 
 # STORAGE CONFIGURATION IN S3 AWS
 # --------------------------------------------------------------------------
@@ -153,11 +162,13 @@ if AWS_ACCESS_KEY_ID:  # pragma: no cover
     AWS_PRELOAD_METADATA = True
     AWS_AUTO_CREATE_BUCKET = False
     AWS_QUERYSTRING_AUTH = True
+    AWS_S3_CUSTOM_DOMAIN = None
+    AWS_DEFAULT_ACL = 'private'
 
     COLLECTFAST_ENABLED = True
 
-    AWS_S3_CUSTOM_DOMAIN = None
-    AWS_DEFAULT_ACL = 'private'
+    STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 
     # Static Assets
     # ------------------------------------------------------------------------------
@@ -176,3 +187,20 @@ if AWS_ACCESS_KEY_ID:  # pragma: no cover
 
     INSTALLED_APPS.append('s3_folder_storage')
     INSTALLED_APPS.append('storages')
+
+SENTRY_DSN = config('SENTRY_DSN', default=None)
+
+if SENTRY_DSN:
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        # We recommend adjusting this value in production.
+        traces_sample_rate=1.0,
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )
