@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Python Pro</title>
+    <title>Lorem ipsum</title>
 
-    <meta name="description" content="Pagina do curso Python Pro">
+    <meta name="description" content="Lorem ipsum">
     <meta name="author" content="Robson Silva">
-
+	<link rel="'icon" type="image/png" href="{% static 'img/favicon.png' %}" />
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -21,7 +21,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'base:home' %}">Python Pro</a>
+    <a class="navbar-brand" href="{% url 'base:home' %}">Lorem ipsum</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,18 +33,16 @@
     </div>
   </div>
 </nav>
-    <div class="container-fluid">
+    <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="jumbotron">
 				<h2>
-					Hello, world!
+					Lorem ipsum
 				</h2>
 				<p>
-					This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
-				</p>
-				<p>
-					<a class="btn btn-primary btn-large" href="#">Learn more</a>
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing."
+				<a href="https://pt.wikipedia.org/wiki/Lorem_ipsum" target="_blank">Wikepédia</a>
 				</p>
 			</div>
 		</div>
@@ -53,11 +51,20 @@
 		<div class="col-md-12">
 			<div class="card">
 				<h5 class="card-header">
-					Card title
+					Mais detalhee
 				</h5>
 				<div class="card-body">
 					<p class="card-text">
-						Card content
+
+						<img src="{% static 'img/Lorem.png' %}" alt="Lorem ipsum"
+							 class="img-thumbnail rounded float-start me-3"/>
+						"<a href="https://pt.wikipedia.org/wiki/Lorem_ipsum">Lorem ipsum</a>
+						dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+						dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+						sunt in culpa qui officia deserunt mollit anim id est laborum."
 					</p>
 				</div>
 				<div class="card-footer">
@@ -67,7 +74,29 @@
 		</div>
 	</div>
 </div>
-
+<footer class="main-footer mt-5 pt-4 text-light">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h3>Entre em Contato</h3>
+				<adress>
+					+55 11 123-456-789
+					<br/>
+					<a href="mailto:robson_lsc@hotmail.com">robson_lsc@hotmail.com</a>
+				</adress>
+			</div>
+		</div>
+	</div>
+	<div class="rights">
+			<div class="container">
+			<div class="row">
+				<div class="col">
+					{% now 'Y' %} Robson Silva. Todos direitos reservados.
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
 
   </body>
 </html>
